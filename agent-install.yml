@@ -3,3 +3,30 @@
   hosts: all
   roles:
     - zabbix-agent
+  tasks:
+    - name: remove host from the discovered hosts group
+      zabbix_host:
+        server_url: "{{ zabbix_url }}"
+        login_user: "{{ zabbix_user }}"
+        login_password: "{{ zabbix_pass }}"
+        host_name: "{{ inventory_hostname }}"
+        visible_name: "{{ ansible_hostname }}"
+        description: Added by Ansible
+        host_groups: "{{ host_groups }}"
+        status: enabled
+        state: present
+      delegate_to: localhost
+      when: "'Discovered hosts' in group_names and 'localhost' not in ansible_hostname
+
+#    - name: E-Mail out new discovered box has localhost set and needs to be resolved  
+#      mail:
+#        host: smtp.gmail.com
+#        port: 587
+#        username: username@gmail.com
+#        password: mysecret
+#        to: John Smith <john.smith@example.com>
+#        subject: Ansible Zabbix Alert Hostname invalid
+#        body: '{{ inventory_hostname }} has been discovered by Zabbix and had the agent installed. However; this server has localhost as the hostname and needs to be resolved'
+#      delegate_to: localhost
+#      when: "'localhost' in ansible_hostname
+      
