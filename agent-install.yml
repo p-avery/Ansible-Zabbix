@@ -16,7 +16,7 @@
         status: enabled
         state: present
       delegate_to: localhost
-      when: "'Discovered hosts' in group_names and 'localhost' not in ansible_hostname
+      when: "'Discovered hosts' in group_names and 'localhost' not in ansible_hostname"
 
 #    - name: E-Mail out new discovered box has localhost set and needs to be resolved  
 #      mail:
@@ -28,5 +28,5 @@
 #        subject: Ansible Zabbix Alert Hostname invalid
 #        body: '{{ inventory_hostname }} has been discovered by Zabbix and had the agent installed. However; this server has localhost as the hostname and needs to be resolved'
 #      delegate_to: localhost
-#      when: "'localhost' in ansible_hostname
+#      when: "'localhost' in ansible_hostname"
       
